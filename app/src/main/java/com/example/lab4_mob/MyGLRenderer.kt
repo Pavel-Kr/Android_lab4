@@ -14,6 +14,10 @@ class MyGLRenderer(private val context: Context): GLSurfaceView.Renderer {
     private val viewMatrix = FloatArray(16)
     private val viewPos = floatArrayOf(0f, 0f, 20f, 1f)
 
+    private val lightX = 2f
+    private val lightY = 2f
+    private val lightZ = -2f
+
     private val shaderHandler = ShaderHandler()
 
     private var sphereShader by Delegates.notNull<Int>()
@@ -33,7 +37,7 @@ class MyGLRenderer(private val context: Context): GLSurfaceView.Renderer {
         sphere = Sphere(0f, 0f, 0f, 1f, sphereShader)
         sphere.setViewPos(viewPos)
         lightSource = Sphere(0f, 0f, 0f, 0.3f, lightShader)
-        lightSource.translate(2f, 2f, -2f);
+        lightSource.translate(lightX, lightY, lightZ)
     }
 
     override fun onSurfaceChanged(p0: GL10?, width: Int, height: Int) {
@@ -49,9 +53,9 @@ class MyGLRenderer(private val context: Context): GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT)
 
-        lightSource.translate(-2f, -2f, 2f)
+        lightSource.translate(-lightX, -lightY, -lightZ)
         lightSource.rotate(1f, 0f, 1f, 0f)
-        lightSource.translate(2f, 2f, -2f)
+        lightSource.translate(lightX, lightY, lightZ)
 
         lightSource.draw(vpMatrix)
         sphere.setLightMatrix(lightSource.getTransformationMatrix())

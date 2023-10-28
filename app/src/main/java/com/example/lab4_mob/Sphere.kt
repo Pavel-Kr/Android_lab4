@@ -78,9 +78,9 @@ class Sphere(cX: Float, cY: Float, cZ: Float, radius: Float, private val shaderP
                 vertices.add((y + cY).toFloat())
                 vertices.add((z + cZ).toFloat())
 
-                var normX = cX - x
-                var normY = cY - y
-                var normZ = cZ - z
+                var normX = x - cX
+                var normY = y - cY
+                var normZ = z - cZ
 
                 val len = vecLength(normX, normY, normZ)
                 normX /= len
